@@ -7,7 +7,7 @@ export function Cabecalho() {
     <header class="header">
       <div class="flex-row">
         <div class="logo">
-          <img class="vector" src={"vector-3.svg"} alt="Vector" />
+          <img class="vector" src={"/public/vector-3.svg"} alt="Vector" />
           <Link to="/">
             <h1 class="title">
               <span class="span0">Pet</span>
