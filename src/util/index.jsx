@@ -189,4 +189,4 @@ export function onChangeInput(name, value, setFormInput, formInput) {
   setFormInput({ ...formInput, [name]: value });
 }
 
-export const urLBase = "http://localhost:4000";
+export const urLBase = "https://129.146.68.51/aluno33-pfsii";
