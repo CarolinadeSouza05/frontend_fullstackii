@@ -1,0 +1,51 @@
+﻿.barrabusca{
+    display: block;
+    padding: 2px;
+    margin: 0;
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 4px 3px 3px rgba(46, 45, 45, 0.473);
+}
+
+.barrabusca svg{
+    margin: 2px;
+}
+
+.barrabusca input[type='text']{
+    display: inline;
+    border: none;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    width: 90%;
+    font-family: var(--font-family-montserrat);
+}
+
+.resultado{
+    margin-top: 5px;
+    width: 100%;
+}
+
+.resultado ul{
+    /* display: none; */
+    position: absolute;
+    float: left;
+    border: 1px;
+    box-shadow: 4px 3px 3px rgba(46, 45, 45, 0.473);
+    padding: 2px;
+    background-color: whitesmoke;
+    width: 80%; 
+}
+
+.resultado li{
+    list-style-type: none;
+    margin: 0;
+    padding: 3px;
+    border-bottom: 1px;
+}
+
+.resultado li:hover{
+    background-color: var(--pelorous);;
+    color: var(--concrete);
+}

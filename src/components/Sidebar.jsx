@@ -2,6 +2,7 @@ import React from "react";
 import {
   FaHome,
   FaRegWindowClose,
+  FaChartBar
 } from "react-icons/fa";
 import "./Sidebar.css";
 import { SidebarItem } from "./SidebarItem";
@@ -25,10 +26,10 @@ export function Sidebar({ active }) {
         </Link>
         <Link to="/cadastro-voluntario">
             <SidebarItem Icon={FaHandHoldingHeart} Text="Voluntários" />
-        </Link>
-        <Link to="/">
-            <SidebarItem Icon={FaChartBar} Text="Estoque" />
         </Link> */}
+        <Link to="/cadastro-agendamento">
+            <SidebarItem Icon={FaChartBar} Text="Agendamento" />
+        </Link>
         <Link to="/cadastro-denuncia">
             <SidebarItem Icon={FaRegWindowClose} Text="Denuncias" />
         </Link>

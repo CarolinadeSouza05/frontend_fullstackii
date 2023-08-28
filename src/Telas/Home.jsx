@@ -1,3 +1,4 @@
+import Barradebusca from '../components/Barradebusca'
 import { Cabecalho } from '../components/Cabecalho'
 import { Footer } from '../components/Footer'
 import './Home.css'
