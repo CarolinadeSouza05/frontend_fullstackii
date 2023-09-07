@@ -6,6 +6,7 @@ import Barradebusca from '../components/Barradebusca';
 export default function FormAgendamento(props) {
     const [animalSelecionado, setAnimalSelecionado] = useState({});
     const [animais, setAnimais] = useState({});
+    const [validado, setValidado] = useState(false);
     const [agendamento, setAgendamento] = useState({
         id: 0,
         animal: {},
@@ -52,87 +53,90 @@ export default function FormAgendamento(props) {
         //         "hora": agendamento.hora
         //     })
         // })
-    const form = evento.currentTarget;
-    if (form.checkValidity()) {
-      if (props.modoEdicao) {
-        //PUT
-        fetch(urLBase + '/agendamentos', {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-                    "id": agendamento.id,
-                    "animal": animalSelecionado,
-                    "servico": agendamento.servico,
-                    "veterinario": agendamento.veterinario,
-                    "data": agendamento.data,
-                    "hora": agendamento.hora
-                })
-        }).then((resposta) => {
-          return resposta.json();
-        }).then((dados) => {
-          if (dados.status) {
-            props.setModoEdicao(false);
-            fetch(urLBase + '/agendamentos', {
-              method: "GET"
-            })
-              .then((resposta) => resposta.json())
-              .then((agendamentoAtualizado) => {
-                props.setDenuncia(agendamentoAtualizado);
-                // props.exibirTabela(true);
-              });
-          }
-          window.alert(dados.mensagem);
-        }).catch((erro) => {
-          window.alert("Erro ao executar alteração denuncia:" + erro.message);
-        });
+        const form = evento.currentTarget;
+        if (form.checkValidity()) {
+            if (props.modoEdicao) {
+                //PUT
+                fetch(urLBase + '/agendamentos', {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "id": agendamento.id,
+                        "animal": animalSelecionado,
+                        "servico": agendamento.servico,
+                        "veterinario": agendamento.veterinario,
+                        "data": agendamento.data,
+                        "hora": agendamento.hora
+                    })
+                }).then((resposta) => {
+                    return resposta.json();
+                }).then((dados) => {
+                    if (dados.status) {
+                        props.setModoEdicao(false);
+                        fetch(urLBase + '/agendamentos', {
+                            method: "GET"
+                        })
+                            .then((resposta) => resposta.json())
+                            .then((agendamentoAtualizado) => {
+                                props.setDenuncia(agendamentoAtualizado);
+                                // props.exibirTabela(true);
+                            });
+                    }
+                    window.alert(dados.mensagem);
+                }).catch((erro) => {
+                    window.alert("Erro ao executar alteração denuncia:" + erro.message);
+                });
 
-      }
-      else {
-        //POST
-        fetch(urLBase + "/agendamentos", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            "id": agendamento.id,
-            "animal": animalSelecionado,
-            "servico": agendamento.servico,
-            "veterinario": agendamento.veterinario,
-            "data": agendamento.data,
-            "hora": agendamento.hora
-        })
-        }).then((resposta) => {
-          return (resposta.json())
-        }).then((dados) => {
-          if (dados.status) {
-            props.setModoEdicao(false);
+            }
+            else {
+                //POST
+                fetch(urLBase + "/agendamentos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "id": agendamento.id,
+                        "animal": animalSelecionado,
+                        "servico": agendamento.servico,
+                        "veterinario": agendamento.veterinario,
+                        "data": agendamento.data,
+                        "hora": agendamento.hora
+                    })
+                }).then((resposta) => {
+                    return (resposta.json())
+                }).then((dados) => {
+                    if (dados.status) {
+                        props.setModoEdicao(false);
 
-            let agendamentos = [...props.listadeagendamentos];
-            agendamentos.push(agendamento)
-            props.setAgendamento(agendamentos);
-            // props.exibirTabela(true);
-          }
-          window.alert(dados.mensagem);
-        }).catch((erro) => {
-          window.alert("Erro ao executar a denuncia:" + erro.message);
-        });
-      }
-      setValidado(false);
+                        let agendamentos = [...props.listadeagendamentos];
+                        agendamentos.push(agendamento)
+                        props.setAgendamento(agendamentos);
+                        // props.exibirTabela(true);
+                    }
+                    window.alert(dados.mensagem);
+                }).catch((erro) => {
+                    window.alert("Erro ao executar a denuncia:" + erro.message);
+                });
+            }
+            setValidado(false);
+        }
+        else {
+            setValidado(true);
+        }
+        evento.preventDefault();
+        evento.stopPropagation();
+
     }
-    else {
-      setValidado(true);
-    }
-    evento.preventDefault();
-    evento.stopPropagation();
-
-  }
     return (
         <div>
             <h1>Formulário de Agendamento</h1>
-            <form className='form' onSubmit={gravarAgendamento}>
+            <form className='form'
+                onSubmit={gravarAgendamento}
+                noValidate
+                validated={validado}>
                 <div>
                     <label htmlFor="animal" className="montserrat-bold-cod-gray-12px">Animal:</label>
                     <Barradebusca
