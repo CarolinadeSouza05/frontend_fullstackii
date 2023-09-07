@@ -39,7 +39,7 @@ export default function FormAgendamento(props) {
         })
     }, []);
 
-    function gravarAgendamento() {
+    function gravarAgendamento(e) {
         // fetch(urLBase + '/agendamentos', {
         //     method: "POST",
         //     headers: { "Content-Type": "application/json" },
@@ -53,6 +53,8 @@ export default function FormAgendamento(props) {
         //     })
         // })
         console.log(animalSelecionado);
+        e.stopPropagation();
+        e.preventDefault();
     }
     return (
         <div>
