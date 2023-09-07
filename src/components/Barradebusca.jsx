@@ -2,13 +2,13 @@
 import { Container, Form } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import './Barradebusca.css'
-// import { Form } from "react-router-dom";
+
 //caixa onde o usuário pode buscar o cadastro de outros registros para usar no preenchimento do seu formulário
 export default function Barradebusca({ placeHolder, dados, campoChave, campoBusca, funcaoSelecao, valor }) {
 
     const inputBusca = useRef();
     const [termoBusca, setTermoBusca] = useState(valor ? valor : "");
-    const [dadosLista, setDadosLista] = useState(dados);
+    const [dadosLista, setDadosLista] = useState([]);
     const [itemSelecionado, setItemSelecionado] = useState(false);
     const [validadePersonalizada, setValidadePersonalizada] = useState("");
 
@@ -19,14 +19,6 @@ export default function Barradebusca({ placeHolder, dados, campoChave, campoBusc
             return termoBusca.length >= 1 ? item[campoBusca].toLowerCase().includes(termoBusca.toLowerCase()) : false
         }))
     }
-
-
-    // let componenteResultado = document.querySelector('[data-resultado]');
-    // if (dadosLista.length > 0) {
-    //     componenteResultado.style.display = 'block';
-    // } else {
-    //     componenteResultado.style.display = 'none';
-    // }
 
     return (
         <Container>
@@ -53,19 +45,19 @@ export default function Barradebusca({ placeHolder, dados, campoChave, campoBusc
                 />
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
-                    onClick={() => {
-                        setTermoBusca("");
-                        setDadosLista(dados);
-                        setItemSelecionado(false);
-                        setValidadePersonalizada("Por favor, selecione um item da lista.");
-                        inputBusca.current.focus();
-                        // setTermoBusca("");
-                        // filtrarResultado();
-                        // setItemSelecionado(false);
-                        // funcaoSelecao({});
-                        // inputBusca.current.setAttribute('aria-invalid', true);
-                        // inputBusca.current.setCustomValidity('Erro');
-                    }}
+                        onClick={() => {
+                            setTermoBusca("");
+                            setDadosLista(dados);
+                            setItemSelecionado(false);
+                            setValidadePersonalizada("Por favor, selecione um item da lista.");
+                            inputBusca.current.focus();
+                            // setTermoBusca("");
+                            filtrarResultado();
+                            // setItemSelecionado(false);
+                            // funcaoSelecao({});
+                            inputBusca.current.setAttribute('aria-invalid', true);
+                            inputBusca.current.setCustomValidity('Erro');
+                        }}
                     /></svg>
             </div>
 

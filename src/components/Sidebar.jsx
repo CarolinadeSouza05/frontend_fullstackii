@@ -28,7 +28,7 @@ export function Sidebar({ active }) {
             <SidebarItem Icon={FaHandHoldingHeart} Text="Voluntários" />
         </Link> */}
         <Link to="/cadastro-agendamento">
-            <SidebarItem Icon={FaChartBar} Text="Agendamento" />
+            <SidebarItem Icon={FaChartBar} Text="Agenda" />
         </Link>
         <Link to="/cadastro-denuncia">
             <SidebarItem Icon={FaRegWindowClose} Text="Denuncias" />
