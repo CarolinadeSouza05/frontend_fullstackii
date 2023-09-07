@@ -80,13 +80,13 @@ export default function FormAgendamento(props) {
                         })
                             .then((resposta) => resposta.json())
                             .then((agendamentoAtualizado) => {
-                                props.setDenuncia(agendamentoAtualizado);
+                                props.setAgendamento(agendamentoAtualizado);
                                 // props.exibirTabela(true);
                             });
                     }
                     window.alert(dados.mensagem);
                 }).catch((erro) => {
-                    window.alert("Erro ao executar alteração denuncia:" + erro.message);
+                    window.alert("Erro ao executar alteração agendamento:" + erro.message);
                 });
 
             }
