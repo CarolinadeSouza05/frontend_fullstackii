@@ -1,28 +1,20 @@
-﻿import React, { Component } from 'react';
+﻿import React from 'react';
 import { useEffect, useState } from 'react';
 import { urLBase } from '../util';
 import Barradebusca from '../components/Barradebusca';
 
 export default function FormAgendamento(props) {
     const [animalSelecionado, setAnimalSelecionado] = useState({});
-    const [animais, setAnimais] = useState({});
+    const [animais, setAnimais] = useState();
     const [validado, setValidado] = useState(false);
     const [agendamento, setAgendamento] = useState({
-        id: 0,
+        codag: 0,
         animal: {},
         servico: "",
         veterinario: "",
         data: "",
         hora: ""
     })
-
-
-    function manupilaAlteracao(e) {
-        const elemForm = e.currentTarget;
-        const id = elemForm.id;
-        const valor = elemForm.value;
-        setAgendamento({ ...agendamento, [id]: valor });
-    }
 
     //Recebendo os Dados do banco de dados
     useEffect(() => {
@@ -40,19 +32,16 @@ export default function FormAgendamento(props) {
         })
     }, []);
 
+    function manupilaAlteracao(e) {
+        const elemForm = e.currentTarget;
+        const id = elemForm.id;
+        const valor = elemForm.value;
+        setAgendamento({ ...agendamento, [id]: valor });
+    }
+
+
+
     function gravarAgendamento(evento) {
-        // fetch(urLBase + '/agendamentos', {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({
-        //         "id": agendamento.id,
-        //         "animal": animalSelecionado,
-        //         "servico": agendamento.servico,
-        //         "veterinario": agendamento.veterinario,
-        //         "data": agendamento.data,
-        //         "hora": agendamento.hora
-        //     })
-        // })
         const form = evento.currentTarget;
         if (form.checkValidity()) {
             if (props.modoEdicao) {
@@ -63,7 +52,7 @@ export default function FormAgendamento(props) {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "id": agendamento.id,
+                        "codag": agendamento.codag,
                         "animal": animalSelecionado,
                         "servico": agendamento.servico,
                         "veterinario": agendamento.veterinario,
@@ -98,7 +87,7 @@ export default function FormAgendamento(props) {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "id": agendamento.id,
+                        "codag": agendamento.codag,
                         "animal": animalSelecionado,
                         "servico": agendamento.servico,
                         "veterinario": agendamento.veterinario,
@@ -118,7 +107,7 @@ export default function FormAgendamento(props) {
                     }
                     window.alert(dados.mensagem);
                 }).catch((erro) => {
-                    window.alert("Erro ao executar a denuncia:" + erro.message);
+                    window.alert("Erro ao executar a agendamento:" + erro.message);
                 });
             }
             setValidado(false);
@@ -132,13 +121,19 @@ export default function FormAgendamento(props) {
     }
     return (
         <div>
-            <h1>Formulário de Agendamento</h1>
-            <form className='form'
+            <form className='form_agenda'
                 onSubmit={gravarAgendamento}
                 noValidate
                 validated={validado}>
+                    <input
+                        type="text"
+                        id="codag"
+                        name="codag"
+                        value={agendamento.codag}
+                        onChange={manupilaAlteracao}
+                        hidden
+                    />
                 <div>
-                    <label htmlFor="animal" className="montserrat-bold-cod-gray-12px">Animal:</label>
                     <Barradebusca
                         placeHolder={'Informe o animal'}
                         dados={animais}
