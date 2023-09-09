@@ -274,15 +274,37 @@ export async function getAnimais() {
   return aux;
 }
 
+// export async function handleSubmitAnimais(animal) {
+//   await fetch(apiAnimais, {
+//       method: "POST",
+//       headers: {
+//           "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify(animal)
+//   })
+//     .then(()=> alert('Animal Cadastrado com sucesso!'))
+// }
 export async function handleSubmitAnimais(animal) {
-  await fetch(apiAnimais, {
+  try {
+    const response = await fetch(apiAnimais, {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(animal)
-  })
-    .then(()=> alert('animal Cadastrado com sucesso!'))
+    });
+
+    if (!response.ok) {
+      // Verifica se a resposta não foi bem-sucedida (códigos de erro HTTP 4xx ou 5xx)
+      const errorMessage = await response.text();
+      throw new Error(`Erro ${response.status}: ${errorMessage}`);
+    }
+
+    alert('Animal Cadastrado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao cadastrar animal:', error.message);
+    // Você pode tratar o erro de outras maneiras, como exibir uma mensagem de erro para o usuário.
+  }
 }
 
 export async function editarAnimais(animal) {
@@ -294,7 +316,7 @@ export async function editarAnimais(animal) {
       },
       body: JSON.stringify(animal),
     })
-    .then(()=> alert('animal editado com sucesso!'))
+    .then(()=> alert('Animal editado com sucesso!'))
   } catch (error) {
     console.log('Erro na requisição:', error);
   }
@@ -310,7 +332,7 @@ export async function excluirAnimais(id) {
       body: JSON.stringify({ id: id }),
     });
 
-    alert("animal deletado com sucesso!");
+    alert("Animal deletado com sucesso!");
   } catch (error) {
     console.error("Erro ao excluir o animal:", error);
     throw error;

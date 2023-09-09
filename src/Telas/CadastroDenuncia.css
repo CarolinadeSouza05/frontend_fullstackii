@@ -12,30 +12,6 @@
   height: auto;
   width: 100%;
 }
-.titulo_tabela_denuncias{
-  width:fit-content;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  z-index: 5;
-  margin-top: -50px!important;
-/* texto */
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.span1 {
-  color: var(--pelorous);
-}
-
-.span0 {
-  color: var(--cod-gray);
-}
 
 .conteudo_denuncia {
   width: 100%;
@@ -153,7 +129,7 @@
   font-style: normal;
 }
 
-.montserrat-bold-concrete-12px {
+.montserrat-bold-conc rete-12px {
   color: var(--concrete);
   font-family: var(-font-family-montserrat);
   font-size: var(--font-size-s);

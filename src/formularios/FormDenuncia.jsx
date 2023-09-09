@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import { urLBase } from "../api/index.js";
+import { urLBase } from "../util/index.jsx";
 
 
 export function FormDenuncia(props) {

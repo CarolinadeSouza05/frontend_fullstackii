@@ -1,7 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 // import Barradebusca from "../components/Barradebusca";
 import { Cabecalho } from "../components/Cabecalho";
-import { urLBase } from "../util";
+import { urLBase } from "../util/index.jsx";
 import FormAgendamento from "../formularios/FormAgendamento.jsx"
 import { Footer } from "../components/Footer";
 import "./CadastroAgendamento.css"

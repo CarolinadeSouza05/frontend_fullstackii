@@ -255,6 +255,7 @@ export function CadastroAnimal(props) {
                 //  accept="image/*" // Aceitar apenas arquivos de imagem
                 id="foto"
                 name="foto"
+                value={animal.foto}
                 onChange={handleChange} // Lidar com a seleção de arquivo de imagem
                 className={validado && !animal.foto ? "input-invalid" : ""}
                 required

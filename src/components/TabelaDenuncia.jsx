@@ -62,10 +62,10 @@ export  function TabelaDenuncia(props) {
                 src={vetor3}
                 alt="Vector"
               />
-              <div>
+      
                 <span className="span0">Denuncias </span><span className="span1">Realizadas</span>
               </div>
-            </div>
+          
 
       <div className="group_pesquisa">
         {/* <div className="search_denuncia"> */}
