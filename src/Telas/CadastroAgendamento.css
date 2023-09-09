@@ -163,7 +163,7 @@
   display: flex;
   gap: 8px;
   justify-content: center;
-  padding: 12px 24px;
+  padding: 8px 18px;
   position: relative;
   width: fit-content;
   margin-right: 3px;
@@ -180,7 +180,7 @@
   background-color: var(--concrete);
   border-radius: 8px;
   padding: 8px 16px;
-  margin-left: 5px;
+  margin-left: 10px;
   font-family: var(--font-family-montserrat);
 }
 
@@ -198,14 +198,26 @@
   padding-top: 20px;
   padding-bottom: 20px;
   position: relative;
+  
+}
+
+.form_agenda label{
+width: 100px;
+text-align: right;
 }
 
 .titulo_agenda {
   width: fit-content;
   margin: 0 auto;
-  padding-top: 20px;
+ margin-top: 20px;
   font-family: var(--font-family-montserrat);
   font-size: var(--font-size-l);
   font-weight: 700;
 
+}
+
+.alinha_button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from './Telas/Home'
 import { CadastroDenuncia } from './Telas/CadastroDenuncia'
 import { CadastroAgendamento } from './Telas/CadastroAgendamento'
+import { CadastroAnimal } from './Telas/CadastroAnimal'
 
 
 export function Router(){
@@ -13,8 +14,8 @@ export function Router(){
                 {/* <Route path='/login' element={<Login />} /> */}
                 <Route path="/cadastro-denuncia" element={<CadastroDenuncia />} />
                 <Route path='/cadastro-agendamento' element={<CadastroAgendamento />} />
-                {/*<Route path='/cadastro' element={<CadastroPessoa />} />
-                <Route path="/designar-voluntario" element={<DesignarAtividades />} />
+                <Route path='/cadastro-animais' element={<CadastroAnimal />} />
+                 {/*<Route path="/designar-voluntario" element={<DesignarAtividades />} />
                 <Route path='/pets' element={<Pagpets />} /> */}
                 {/* <Route path='/entradas' element={<LancEntrada />} /> */}
             </Routes>

@@ -1,8 +1,8 @@
 import { Button, Container, Table } from "react-bootstrap";
 import { FaEdit, FaSearch, FaTrash } from "react-icons/fa";
 import "./TabelaDenuncia.css";
-import { urLBase } from "../util";
-
+import { urLBase } from "../api/index.js";
+import vetor3 from "../imagens/vector-3.svg"
 
 export  function TabelaDenuncia(props) {
   // const [denuncia, setDenuncia] = useState(props.listadedenuncias);
@@ -37,6 +37,7 @@ export  function TabelaDenuncia(props) {
       numero: "",
       cep: "",
       cidade: "",
+      data:"",
       observacoes: "",
       telefone: ""
     });
@@ -55,6 +56,16 @@ export  function TabelaDenuncia(props) {
         }}>
         Novo Cadastro
       </button>
+      <div className="titulo_tabela_denuncias">
+              <img
+                className="vector vectorEntrada"
+                src={vetor3}
+                alt="Vector"
+              />
+              <div>
+                <span className="span0">Denuncias </span><span className="span1">Realizadas</span>
+              </div>
+            </div>
 
       <div className="group_pesquisa">
         {/* <div className="search_denuncia"> */}
@@ -62,8 +73,10 @@ export  function TabelaDenuncia(props) {
           type="text"
           id="termoBusca"
           className="searchInput_denuncia"
+          placeholder="Pesquise pelas observações da denuncia"
           onChange={filtrarDenuncias}
         />
+        
 
         <div className="botaoprimario">
           <button className="searchButton">
@@ -71,6 +84,7 @@ export  function TabelaDenuncia(props) {
           </button>
         </div>
       </div>
+  
 
 
       <Table>
@@ -80,6 +94,7 @@ export  function TabelaDenuncia(props) {
             <th>Nº</th>
             <th>CEP</th>
             <th>Cidade</th>
+            <th>Data</th>
             <th>Telefone</th>
             <th>Observações</th>
             <th>Ações</th>
@@ -87,12 +102,14 @@ export  function TabelaDenuncia(props) {
         </thead>
         <tbody>
           {props.listadedenuncias?.map((denuncia) => {
+            const dataFormatada = new Date(denuncia.data).toLocaleDateString();
             return (
               <tr key={denuncia.id}>
                 <td>{denuncia.rua}</td>
                 <td>{denuncia.numero}</td>
                 <td>{denuncia.cep}</td>
                 <td>{denuncia.cidade}</td>
+                <td>{dataFormatada}</td>
                 <td>{denuncia.telefone}</td>
                 <td>{denuncia.observacoes}</td>
                 <td>

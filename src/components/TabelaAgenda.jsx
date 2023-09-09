@@ -22,16 +22,7 @@ export  function TabelaAgenda(props) {
 //         }
 //       })
 //   }
-  function limparFormulario() {
-    props.setAgendamentoEmEdicao({
-        codag: 0,
-        animal: {},
-        servico: "",
-        veterinario: "",
-        data: "",
-        hora: ""
-    });
-  }
+
 
  
   return (

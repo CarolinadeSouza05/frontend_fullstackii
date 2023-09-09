@@ -15,6 +15,21 @@ export default function FormAgendamento(props) {
         data: "",
         hora: ""
     })
+    function limparFormulario() {
+        props.setModoEdicao(false);
+        props.setAgendamentoEmEdicao({
+            codag: 0,
+            animal: {},
+            servico: "",
+            veterinario: "",
+            data: "",
+            hora: ""
+        });
+    }
+
+    useEffect(() => {
+        setAgendamento(props.agendamentoEmEdicao);
+    }, [props.agendamentoEmEdicao]);
 
     //Recebendo os Dados do banco de dados
     useEffect(() => {
@@ -100,10 +115,24 @@ export default function FormAgendamento(props) {
                     if (dados.status) {
                         props.setModoEdicao(false);
 
-                        let agendamentos = [...props.listadeagendamentos];
-                        agendamentos.push(agendamento)
-                        props.setAgendamento(agendamentos);
-                        // props.exibirTabela(true);
+                        // Após o cadastro bem-sucedido, faça uma nova solicitação GET para obter o agendamento recém-criado
+                        fetch(urLBase + '/agendamentos/', {
+                            method: "GET"
+                        })
+                            .then((resposta) => resposta.json())
+                            .then((agendamentoAtualizado) => {
+                                props.setAgendamento(agendamentoAtualizado);
+
+                                // Atualize animalSelecionado aqui com os detalhes do animal do agendamento recém-criado
+                                setAnimalSelecionado(agendamentoAtualizado.animal);
+                            });
+
+                        // let agendamentos = [...props.listadeagendamentos];
+                        // agendamentos.push(agendamento)
+                        // props.setAgendamento(agendamentos);
+                        // // props.exibirTabela(true);
+                        // // Atualize animalSelecionado aqui
+
                     }
                     window.alert(dados.mensagem);
                 }).catch((erro) => {
@@ -125,14 +154,14 @@ export default function FormAgendamento(props) {
                 onSubmit={gravarAgendamento}
                 noValidate
                 validated={validado}>
-                    <input
-                        type="text"
-                        id="codag"
-                        name="codag"
-                        value={agendamento.codag}
-                        onChange={manupilaAlteracao}
-                        hidden
-                    />
+                <input
+                    type="text"
+                    id="codag"
+                    name="codag"
+                    value={agendamento.codag}
+                    onChange={manupilaAlteracao}
+                    hidden
+                />
                 <div>
                     <Barradebusca
                         placeHolder={'Informe o animal'}
@@ -142,7 +171,7 @@ export default function FormAgendamento(props) {
                         funcaoSelecao={setAnimalSelecionado}
                     ></Barradebusca>
                 </div>
-                <div>
+                <div >
                     <label htmlFor="servico" className="montserrat-bold-cod-gray-12px">Serviço:</label>
                     <select
                         id="servico"
@@ -158,7 +187,7 @@ export default function FormAgendamento(props) {
                         <option value="Internação">Internação</option>
                     </select>
                 </div>
-                <div>
+                <div >
                     <label htmlFor="veterinario" className="montserrat-bold-cod-gray-12px">Veterinário:</label>
                     <input
                         type="text"
@@ -166,7 +195,7 @@ export default function FormAgendamento(props) {
                         name="veterinario"
                         value={agendamento.veterinario}
                         onChange={manupilaAlteracao}
-                        className="flex-row-item"
+                        className="flex-row-item "
                         required
                     />
                 </div>
@@ -194,7 +223,16 @@ export default function FormAgendamento(props) {
                         required
                     />
                 </div>
-                <button type="submit" className='botao_agendar montserrat-bold-concrete-16px'>Agendar</button>
+                <div className='alinha_button'>
+                    <button
+                        type="button"
+                        id="limpar"
+                        className="botao_denuncia montserrat-bold-concrete-16px"
+                        onClick={limparFormulario}
+                    >
+                        Limpar
+                    </button>
+                    <button type="submit" className='botao_agendar montserrat-bold-concrete-16px'>{props.modoEdicao ? "Remarcar" : "Agendar"}</button></div>
             </form>
         </div>
     );

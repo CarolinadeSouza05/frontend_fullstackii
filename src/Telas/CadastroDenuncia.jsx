@@ -4,7 +4,8 @@ import { Cabecalho } from "../components/Cabecalho.jsx";
 import { TabelaDenuncia } from "../components/TabelaDenuncia.jsx";
 import { FormDenuncia } from "../formularios/FormDenuncia";
 import "./CadastroDenuncia.css";
-import { urLBase } from "../util/index.jsx";
+import { urLBase } from "../api/index.js"; 
+
 
 export function CadastroDenuncia(props) {
   const [exibirTabela, setExibirTabela] = useState(true);
@@ -17,6 +18,7 @@ export function CadastroDenuncia(props) {
     numero: "",
     cep: "",
     cidade: "",
+    data:"",
     observacoes: "",
     telefone: ""
   });

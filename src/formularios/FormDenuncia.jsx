@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import { urLBase } from "../util";
+import { urLBase } from "../api/index.js";
+
 
 export function FormDenuncia(props) {
   //-------------------------------------mascaras
@@ -78,10 +79,14 @@ export function FormDenuncia(props) {
           if (dados.status) {
             props.setModoEdicao(false);
 
-            let denuncias = [...props.listadedenuncias];
-            denuncias.push(denuncia)
-            props.setDenuncia(denuncias);
-            props.exibirTabela(true);
+            fetch(urLBase + "/denuncias", {
+              method: "GET"
+            })
+              .then((resposta) => resposta.json())
+              .then((denunciasAtualizadas) => {
+                props.setDenuncia(denunciasAtualizadas);
+                props.exibirTabela(true);
+              });
           }
           window.alert(dados.mensagem);
         }).catch((erro) => {
@@ -132,7 +137,7 @@ export function FormDenuncia(props) {
             <Form.Label className="montserrat-bold-cod-gray-12px">
               Onde está ocorrendo os maus tratos?
             </Form.Label>
-            <Form.Group as={Col} md="3">
+            <Form.Group as={Col} md="8">
               <Form.Control
                 type="text"
                 className="flex-row-item"
@@ -147,7 +152,7 @@ export function FormDenuncia(props) {
               Informe a rua.
             </Form.Control.Feedback>
 
-            <Form.Group as={Col} md="3" className="mb-3">
+            <Form.Group as={Col} md="4" className="mb-3">
               <Form.Control
                 type="text"
                 placeholder="Nº"
@@ -160,9 +165,25 @@ export function FormDenuncia(props) {
             </Form.Group>
             <Form.Control.Feedback type="invalid">
               Informe o número.
-            </Form.Control.Feedback>
+            </Form.Control.Feedback></Row>
+               {/* ------------------------------------------- Fim da linha */}
+          <Row>    
 
-            <Form.Group as={Col} md="3" className="mb-3">
+            <Form.Group as={Col} md="8" className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Cidade"
+                required
+                onChange={manupilaAlteracao}
+                className="flex-row-item"
+                value={denuncia.cidade}
+                id="cidade"
+              ></Form.Control>
+            </Form.Group>
+            <Form.Control.Feedback type="invalid">
+              Informe a cidade.
+            </Form.Control.Feedback>
+            <Form.Group as={Col} md="4" className="mb-3">
               <Form.Control
                 type="text"
                 placeholder="CEP 00000-000"
@@ -177,21 +198,25 @@ export function FormDenuncia(props) {
             </Form.Group>
             <Form.Control.Feedback type="invalid">
               Informe o CEP.
-            </Form.Control.Feedback>
+            </Form.Control.Feedback></Row>
 
-            <Form.Group as={Col} md="3" className="mb-3">
+            {/* Fim Da Linha */}
+            <Row>
+            <Form.Label className="montserrat-bold-cod-gray-12px">
+              Quando ocorreu os maus tratos?
+            </Form.Label>
+            <Form.Group className="mb-3">
               <Form.Control
-                type="text"
-                placeholder="Cidade"
+                type="date"
                 required
                 onChange={manupilaAlteracao}
                 className="flex-row-item"
-                value={denuncia.cidade}
-                id="cidade"
+                value={denuncia.data}
+                id="data"
               ></Form.Control>
             </Form.Group>
             <Form.Control.Feedback type="invalid">
-              Informe a cidade.
+              Informe a data.
             </Form.Control.Feedback>
           </Row>
 
@@ -233,7 +258,7 @@ export function FormDenuncia(props) {
               ></Form.Control>
             </Form.Group>
           </Row>
-          <div class="botoes">
+          <div className="botoes">
             <button
               type="button"
               id="limpar"

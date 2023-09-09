@@ -155,26 +155,6 @@ export const aceitarFazerArray = [
   },
 ];
 
-export const listadedenuncias = [
-  {
-      id:"1",
-      rua: "R. das Margaridas ",
-      numero: "123",
-      cep: "19060-260",
-      cidade: "Presidente Prudente",
-      observacoes: "Sem comida",
-      tel: ""
-  },
-  {   
-      id:"2",
-      rua: "R. das Aboboras",
-      numero: "321",
-      cep: "19060-120",
-      cidade: "Pres. Prudente",
-      observacoes: "Não tem onde dormir",
-      tel: "(18)99999-9999"
-  },
-];
 
 export function ObjectEmptyValue(array) {
   for (let chave in array) {

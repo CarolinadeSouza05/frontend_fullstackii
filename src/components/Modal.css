@@ -10,12 +10,13 @@
 }
 
 .modal-container {
+  border-radius: 8px;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  height: 75%;
-  overflow: auto;
+  /* height: 75%; */
+  overflow-x: auto;
   padding: 20px;
   width: 85%;
 }
@@ -34,14 +35,40 @@
   font-size: 20px;
   font-weight: bold;
   transition: all 1s;
+  width: auto;
 }
 
 .modal-container-title h2:hover {
   color: #3ab1b9;
 }
 
+.modal-container-title .search{
+  align-items: center;
+  border: 1px solid #3ab1b9;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 6px 4px;
+  width: 30%;
+  margin-bottom: 10px;
+}
+
+.search input{
+  border: none;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+}
+
 .modal-container svg {
   cursor: pointer;
+  width: auto;
+  transition: .5s;
+}
+
+.modal-container svg:hover{
+  color: #3ab1b9;
 }
 
 .modal-container table {
@@ -54,6 +81,10 @@
   min-width: 100%;
   overflow: scroll;
   text-align: left;
+}
+
+.modal-container table thead tr th{
+  background-color: transparent;
 }
 
 .modal-container table thead,
@@ -88,7 +119,7 @@
     font-size: 32px;
   }
 
-  .modal-container table {
+  /* .modal-container table {
     overflow: auto;
-  }
+  } */
 }
