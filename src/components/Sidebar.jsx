@@ -3,11 +3,13 @@ import {
   FaHome,
   FaRegWindowClose,
   FaChartBar,
-  FaDog
+  FaDog,
+  FaCalendarCheck
 } from "react-icons/fa";
 import "./Sidebar.css";
 import { SidebarItem } from "./SidebarItem";
 import { Link } from "react-router-dom";
+
 
 export function Sidebar({ active }) {
   return (
@@ -34,6 +36,9 @@ export function Sidebar({ active }) {
         </Link>
         <Link to="/cadastro-denuncia">
             <SidebarItem Icon={FaRegWindowClose} Text="Denuncias" />
+        </Link>
+        <Link to="/designar-voluntario">
+            <SidebarItem Icon={FaCalendarCheck} Text="Designar" />
         </Link>
       </div>
     </div>

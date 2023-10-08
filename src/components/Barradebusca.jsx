@@ -21,7 +21,7 @@ export default function Barradebusca({ placeHolder, dados, campoChave, campoBusc
     }
 
     return (
-        <Container>
+        <div>
             <div className="barrabusca">
                 <FaSearch />
                 <Form.Control
@@ -83,6 +83,6 @@ export default function Barradebusca({ placeHolder, dados, campoChave, campoBusc
                     }
                 </ul>
             </div>
-        </Container>
+        </div>
     );
 }

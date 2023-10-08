@@ -1,15 +1,18 @@
 ﻿.barrabusca{
-    display: block;
+    display: flex; 
+    justify-content: space-between;
     padding: 2px;
     margin: 0;
-    margin-top: 20px;
-    border: 1px solid black;
-    border-radius: 5px;
-    box-shadow: 4px 3px 3px rgba(46, 45, 45, 0.473);
+    margin-top: 0px;
+    border: 2px solid  #3ab1b9;;
+    border-radius: 8px;
+    width: 100%;
+    /* box-shadow: 4px 3px 3px rgba(46, 45, 45, 0.473); */
 }
 
 .barrabusca svg{
     margin: 2px;
+    align-self: center;
 }
 
 .barrabusca input[type='text']{
@@ -18,8 +21,10 @@
     background-color: transparent;
     resize: none;
     outline: none;
-    width: 80%;
+    flex-grow: 1;
     font-family: var(--font-family-montserrat);
+    min-width: 250px; /* Defina o valor mínimo de largura */
+    max-width: 80%; /* Defina o valor máximo de largura */
 }
 
 .resultado{

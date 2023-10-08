@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { useEffect, useState } from 'react';
-import { urLBase } from '../util';
+import { urLBase } from '../util/index.jsx';
 import Barradebusca from '../components/Barradebusca';
 
 export default function FormAgendamento(props) {
