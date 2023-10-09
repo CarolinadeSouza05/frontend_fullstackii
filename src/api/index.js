@@ -4,7 +4,7 @@
 // const apiEntradas = "http://localhost:4000/entradas";
 // const apiAnimais = "http://localhost:4000/animais";
 const apiAnimais = "https://129.146.68.51/aluno33-pfsii/animais";
-// export const urLBase = "http://localhost:4000";
+export const urLBase = "https://129.146.68.51/aluno33-pfsii/";
 
 export async function getAllRegisterLogin(){
     let aux = [];
