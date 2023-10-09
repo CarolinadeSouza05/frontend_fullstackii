@@ -1,7 +1,7 @@
-// const apiLogin = "http://localhost:4000/login";
-// const apiVoluntario = "http://localhost:4000/voluntarios";
-// const apiProdutos = "http://localhost:4000/produto";
-// const apiEntradas = "http://localhost:4000/entradas";
+const apiLogin = "https://129.146.68.51/aluno33-pfsii/login";
+const apiVoluntario = "https://129.146.68.51/aluno33-pfsii/voluntarios";
+const apiProdutos = "https://129.146.68.51/aluno33-pfsii/produto";
+const apiEntradas = "https://129.146.68.51/aluno33-pfsii/entradas";
 // const apiAnimais = "http://localhost:4000/animais";
 const apiAnimais = "https://129.146.68.51/aluno33-pfsii/animais";
 export const urLBase = "https://129.146.68.51/aluno33-pfsii/";
