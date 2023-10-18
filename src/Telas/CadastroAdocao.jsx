@@ -1,67 +1,65 @@
 ﻿import { useState, useEffect } from "react";
 // import Barradebusca from "../components/Barradebusca";
 import { Cabecalho } from "../components/Cabecalho";
-import {urLBase} from "../util/index.jsx";
-import FormAgendamento from "../formularios/FormAgendamento.jsx"
+import { urLBase } from "../api/index.js";
+import FormAdocao from "../formularios/FormAdocao.jsx"
 import { Footer } from "../components/Footer";
-import "./CadastroAgendamento.css"
+import "./CadastroAdocao.css"
 import vetor3 from "../imagens/vector-3.svg"
-import { TabelaAgenda } from "../components/TabelaAgenda";
+import { TabelaAdocao } from "../components/TabelaAdocao";
 
-export function CadastroAgendamento(props) {
-    const [agendamento, setAgendamento] = useState(props.agendamento);
+export function CadastroAdocao(props) {
+    const [adocao, setAdocao] = useState(props.adocao);
     const [modoEdicao, setModoEdicao] = useState(false);
     // const [atualizando, setAtualizando] = useState(false);
-    const [agendamentoEmEdicao, setAgendamentoEmEdicao] = useState({
-        codag: "",
+    const [adocaoEmEdicao, setAdocaoEmEdicao] = useState({
+        codAdocao: "",
         animal: {},
-        servico: "",
-        veterinario: "",
+        adotante: "",
         data: "",
-        hora: ""
     });
 
-    function prepararParaAtualizar(agendamento) {
+    function prepararParaAtualizar(adocao) {
         setModoEdicao(true);
-        setAgendamentoEmEdicao(agendamento);
+        setAdocaoEmEdicao(adocao);
     }
 
-    //Realiza a exclusão dos agendamentos
-    function apagarAgendamento(agendamento) {
-        fetch(urLBase + "/agendamentos", {
+    //Realiza a exclusão dos adocoes
+    function apagarAdocao(adocao) {
+        fetch(urLBase + "/adocoes", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(agendamento)
+            body: JSON.stringify(adocao)
         }).then((resposta) => resposta.json()
         ).then((dados) => {
             window.alert(dados.mensagem);
             //Fazendo um novo Get para atualizar a tabela após exclusão
-            fetch(urLBase + "/agendamentos", {
+            fetch(urLBase + "/adocoes", {
                 method: "GET"
             }).then((resposta) => {
                 return resposta.json();
             }).then((dados) => {
-                const aux = setAgendamento(dados)
-                const listaAtualizada = aux.filter((item) => item.id !== agendamento.id);
-                props.setAgendamento(listaAtualizada);
+                const aux = setAdocao(dados)
+                const listaAtualizada = aux.filter((item) => item.id !== adocao.codAdocao);
+                props.setAdocao(listaAtualizada);
             })
         }).catch((erro) => {
-            window.alert("Erro ao executar exclusão do agendamento:" + erro.message);
+            window.alert("Erro ao executar exclusão do adocao:" + erro.message);
         });
     }
 
 
     //Recebendo os Dados do banco de dados
     useEffect(() => {
-        fetch(urLBase + "/agendamentos", {
+        fetch(urLBase + "/adocoes", {
             method: "GET"
         }).then((resposta) => {
             return resposta.json();
         }).then((dados) => {
             if (Array.isArray(dados)) {
-                setAgendamento(dados);
+                setAdocao(dados);
             }
             else {
 
@@ -80,15 +78,15 @@ export function CadastroAgendamento(props) {
                         alt="Vector"
                     />
                     <>
-                        Novos <span className="span1">Agendamentos</span>
+                        Novas <span className="span1">Adoções</span>
                     </></div>
-                <FormAgendamento
-                    listadeagendamentos={agendamento}
-                    setAgendamento={setAgendamento}
+                <FormAdocao
+                    listadeadocoes={adocao}
+                    setAdocao={setAdocao}
                     setModoEdicao={setModoEdicao}
                     modoEdicao={modoEdicao}
-                    agendamentoEmEdicao={agendamentoEmEdicao}
-                    setAgendamentoEmEdicao={setAgendamentoEmEdicao}
+                    adocaoEmEdicao={adocaoEmEdicao}
+                    setAdocaoEmEdicao={setAdocaoEmEdicao}
                 />
             </div>
             <div className="page_container">
@@ -99,14 +97,14 @@ export function CadastroAgendamento(props) {
                         alt="Vector"
                     />
                     <>
-                        Agendamentos <span className="span1">Realizados</span>
+                    Adoções <span className="span1">Realizadas</span>
                     </></div>
-                <TabelaAgenda
-                    listadeagendamentos={agendamento}
-                    excluirAgendamento={apagarAgendamento}
-                    editarAgendamento={prepararParaAtualizar}
-                    setAgendamento={setAgendamento}
-                    setAgendamentoEmEdicao={setAgendamentoEmEdicao} />
+                <TabelaAdocao
+                    listadeadocoes={adocao}
+                    excluirAdocao={apagarAdocao}
+                    editarAdocao={prepararParaAtualizar}
+                    setAdocao={setAdocao}
+                    setAdocaoEmEdicao={setAdocaoEmEdicao} />
             </div>
 
             <Footer />

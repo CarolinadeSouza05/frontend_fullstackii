@@ -1,7 +1,7 @@
 {
   "name": "formulario",
   "version": "0.1.0",
-  "homepage": " https://CarolinadeSouza05.github.io/frontend_fullstackii",
+  "homepage": "https://github.com/MatheusAmadilho/front_fullstack.git",
   "private": true,
   "dependencies": {
     "@phosphor-icons/react": "^2.0.9",

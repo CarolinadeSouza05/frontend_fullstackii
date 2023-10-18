@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import './Barradebusca.css'
 
 //caixa onde o usuário pode buscar o cadastro de outros registros para usar no preenchimento do seu formulário
-export default function Barradebusca({ placeHolder, dados, campoChave, campoBusca, funcaoSelecao, valor }) {
+export default function Barradebusca({ placeholder, dados, campoChave, campoBusca, funcaoSelecao, valor }) {
 
     const inputBusca = useRef();
     const [termoBusca, setTermoBusca] = useState(valor ? valor : "");
@@ -26,7 +26,7 @@ export default function Barradebusca({ placeHolder, dados, campoChave, campoBusc
                 <FaSearch />
                 <Form.Control
                     type="text"
-                    placeholder={placeHolder}
+                    placeholder={placeholder}
                     value={termoBusca}
                     onChange={e => {
                         setTermoBusca(e.target.value.toLowerCase());

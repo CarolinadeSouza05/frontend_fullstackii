@@ -17,7 +17,7 @@ export function Cabecalho() {
             </h1>
           </Link>
         </div>
-        <div class="menu_opc">
+        <div className="menu_opc">
           <Link to="" className="adote-um-pet montserrat-bold-cod-gray-16px">
             Adote um Pet
           </Link>
