@@ -1,14 +1,9 @@
 
 //  const apiAnimais = "http://localhost:4000/animais";
-<<<<<<< HEAD
 // export const urLBase = "http://localhost:4000";
 const apiAnimais = "https://129.146.68.51/aluno33-pfsii/animais";
  export const urLBase = "https://129.146.68.51/aluno33-pfsii";
-=======
-const apiAnimais = "https://129.146.68.51/aluno34-pfsii/animais";
-// export const urLBase = "https://129.146.68.51/aluno33-pfsii/";
-export const urLBase = "https://129.146.68.51/aluno34-pfsii";
->>>>>>> 8903a37081308c59b0fe0aefa9d274b66c065145
+
 //================== API-Animais ==================//
 
 export async function getAnimais() {

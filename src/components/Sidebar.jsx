@@ -31,15 +31,16 @@ export function Sidebar({ active }) {
             <SidebarItem Icon={FaDog} Text="Animais" />
         </Link>
         
-        <Link to="/cadastro-adocao">
-            <SidebarItem Icon={FaChartBar} Text="Adoções" />
+        <Link to="/cadastro-agendamento">
+            <SidebarItem Icon={FaChartBar} Text="Agenda" />
+        </Link>
+        <Link to="/designar-voluntario">
+            <SidebarItem Icon={FaCalendarCheck} Text="Designar" />
         </Link>
         {/* <Link to="/cadastro-denuncia">
             <SidebarItem Icon={FaRegWindowClose} Text="Denuncias" />
         </Link>
-        <Link to="/designar-voluntario">
-            <SidebarItem Icon={FaCalendarCheck} Text="Designar" />
-        </Link> */}
+         */}
       </div>
     </div>
   );
