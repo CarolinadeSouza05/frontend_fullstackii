@@ -5,7 +5,26 @@
   width: 50%;
   float: left
 }
-
+ .searchInput_agenda{
+  width: 95%;
+  /* position: relative; */
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 8px 16px;
+  /* border-width: 1px; */
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #3ab1b9;
+  box-sizing: border-box;
+  color: rgba(13, 13, 13, 0.3);
+  font-size: 16px;
+  font-family:var(--font-family-montserrat);
+  line-height: 24px;
+  white-space: nowrap;
+  margin-top: 20px;
+} 
 .montserrat-bold-pelorous-16px {
   color: var(--pelorous);
   font-family: var(--font-family-montserrat);

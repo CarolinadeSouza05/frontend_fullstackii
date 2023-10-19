@@ -1,40 +1,56 @@
 ﻿import { Button, Container, Table } from "react-bootstrap";
 import { FaEdit, FaSearch, FaTrash } from "react-icons/fa";
 import "./TabelaDenuncia.css";
-import { urLBase } from "../util";
+import { urLBase } from "../api/index.js";
 
 
-export  function TabelaAgenda(props) {
+export function TabelaAgenda(props) {
 
-//   //Filtro sempre busca na lista original do banco de dados
-//   function filtrarDenuncias(e) {
-//     const termoBusca = e.currentTarget.value;
+  // function formatarData(data) {
+  //   const dataObj = new Date(data);
+  //   const dia = dataObj.getDate().toString().padStart(2, "0");
+  //   const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
+  //   const ano = dataObj.getFullYear();
+  //   return `${dia}/${mes}/${ano}`;
+  // }
 
-//     fetch(urLBase + "/agendamentos", { method: "GET" })
-//       .then((resposta) => {
-//         return resposta.json()
-//       }).then((listadeagendamentos) => {
-//         if (Array.isArray(listadeagendamentos)) {
-//           const resultadoBusca = listadeagendamentos.filter((agendamento) =>
-//             agendamento.observacoes.toLowerCase().includes(termoBusca.toLowerCase())
-//           );
-//           props.setDenuncia(resultadoBusca);
-//         }
-//       })
-//   }
+    //Filtro sempre busca na lista original do banco de dados
+    function filtrarAgenda(e) {
+      const termoBusca = e.currentTarget.value;
+
+      fetch(urLBase + "/agendamentos", { method: "GET" })
+        .then((resposta) => {
+          return resposta.json()
+        }).then((listadeagendamentos) => {
+          if (Array.isArray(listadeagendamentos)) {
+            const resultadoBusca = listadeagendamentos.filter((agendamento) =>
+              agendamento.data.toLowerCase().includes(termoBusca.toLowerCase())
+            );
+            props.setAgendamento(resultadoBusca);
+          }
+        })
+    }
 
 
- 
+
   return (
     <Container className="container-table-denuncia body">
-      {/* <button
+
+      <div>
+        <input
+          type="date"
+          id="termoBusca"
+          className="searchInput_agenda"
+          onChange={filtrarAgenda}
+        /></div>
+        {/* <button
         className="botao_denuncia_tab montserrat-bold-concrete-16px"
         onClick={() => {
           limparFormulario()
           props.exibirTabela(false);
           props.setAtualizando(false);
         }}>
-        Novo Cadastro
+        Novo CadastroF
       </button>
 
       <div className="group_pesquisa">
@@ -53,53 +69,55 @@ export  function TabelaAgenda(props) {
       </div> */}
 
 
-      <Table>
-        <thead>
-          <tr>
-            <th>Animal</th>
-            <th>Serviço</th>
-            <th>Veterinário</th>
-            <th>Data</th>
-            <th>Hora</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.listadeagendamentos?.map((agendamento) => {
-            const dataFormatada = new Date(agendamento.data).toLocaleDateString();
-            return (
-              <tr key={agendamento.codag}>
-                <td>{agendamento.animal.nome}</td>
-                <td>{agendamento.servico}</td>
-                <td>{agendamento.veterinario}</td>
-                <td>{dataFormatada}</td>
-                <td>{agendamento.hora}</td>
-                <td>
-                  <div className="botoes">
-                    <Button
-                      className="botao_table"
-                    onClick={() => {
-                      props.editarAgendamento(agendamento)
-                    }}
-                    ><FaEdit />
-                    </Button>
-                    <Button
-                      className="botao_table"
-                      onClick={() => {
-                        if (window.confirm("Confirma a exclusão desta denuncia?")){
-                          props.excluirAgendamento(agendamento)
-                        }
-                      }}
-                    >
-                      <FaTrash />
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+        <Table>
+          <thead>
+            <tr>
+              <th>Animal</th>
+              <th>Serviço</th>
+              <th>Veterinário</th>
+              <th>Data</th>
+              <th>Hora</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.listadeagendamentos?.map((agendamento) => {
+              // const dataFormatada = new Date(agendamento.data).toLocaleDateString();
+              // const dataFormatada = formatarData(agendamento.data);
+              return (
+                <tr key={agendamento.codag}>
+                  <td>{agendamento.animal.nome}</td>
+                  <td>{agendamento.servico}</td>
+                  <td>{agendamento.veterinario}</td>
+                  <td>{agendamento.data}</td>
+                  {/* <td>{dataFormatada}</td> */}
+                  <td>{agendamento.hora}</td>
+                  <td>
+                    <div className="botoes">
+                      <Button
+                        className="botao_table"
+                        onClick={() => {
+                          props.editarAgendamento(agendamento)
+                        }}
+                      ><FaEdit />
+                      </Button>
+                      <Button
+                        className="botao_table"
+                        onClick={() => {
+                          if (window.confirm("Confirma a exclusão desta denuncia?")) {
+                            props.excluirAgendamento(agendamento)
+                          }
+                        }}
+                      >
+                        <FaTrash />
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
     </Container>
   );
 }

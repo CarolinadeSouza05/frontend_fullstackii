@@ -15,9 +15,9 @@ export function Home() {
                     <div className='span2_home subtitle_home'> Que tal adotar um pet?</div>
                     <div className='texto_home'>O nosso sistema de adoção de pets é a solução perfeita para encontrar o seu amigo de quatro patas.
                         <br/><br/>Com uma ampla seleção de cães e gatos de todas as idades e raças, você certamente encontrará o seu par ideal.</div><br/>
-                    <div class="botoes_home">
-                        <LinkContainer to="/pets"><NavLink><button type="button" class="botao_home1 montserrat-bold-concrete-16px">Adote um Pet</button></NavLink></LinkContainer>
-                        <LinkContainer to="/cadastro-denuncia"><NavLink><button type="button" class="botao_home2" >Faça uma denúncia</button></NavLink></LinkContainer>
+                    <div className="botoes_home">
+                        <LinkContainer to="/pets"><NavLink><button type="button" className="botao_home1 montserrat-bold-concrete-16px">Adote um Pet</button></NavLink></LinkContainer>
+                        <LinkContainer to="/cadastro-denuncia"><NavLink><button type="button" className="botao_home2" >Faça uma denúncia</button></NavLink></LinkContainer>
                     </div>
                 </div>
                 <div className='text_home_right'>

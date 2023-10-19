@@ -1,11 +1,11 @@
 ﻿import React from 'react';
 import { useEffect, useState } from 'react';
-import { urLBase } from '../util/index.jsx';
+import { urLBase } from '../api/index.js';
 import Barradebusca from '../components/Barradebusca';
 
 export default function FormAgendamento(props) {
     const [animalSelecionado, setAnimalSelecionado] = useState({});
-    const [animais, setAnimais] = useState();
+    const [animais, setAnimais] = useState([]);//adicionei a lista vazia
     const [validado, setValidado] = useState(false);
     const [agendamento, setAgendamento] = useState({
         codag: 0,
@@ -24,7 +24,12 @@ export default function FormAgendamento(props) {
             veterinario: "",
             data: "",
             hora: ""
-        });
+        }); window.location.reload()
+
+    }
+
+    function limparCampoBusca() {
+        setAnimalSelecionado({});
     }
 
     useEffect(() => {
@@ -61,6 +66,7 @@ export default function FormAgendamento(props) {
         if (form.checkValidity()) {
             if (props.modoEdicao) {
                 //PUT
+                // const dataFormatada = new Date(agendamento.data).toLocaleDateString('ko-KR');
                 fetch(urLBase + '/agendamentos', {
                     method: "PUT",
                     headers: {
@@ -68,7 +74,7 @@ export default function FormAgendamento(props) {
                     },
                     body: JSON.stringify({
                         "codag": agendamento.codag,
-                        "animal": animalSelecionado,
+                        "animal": {"id": animalSelecionado.id},
                         "servico": agendamento.servico,
                         "veterinario": agendamento.veterinario,
                         "data": agendamento.data,
@@ -93,6 +99,8 @@ export default function FormAgendamento(props) {
                     window.alert("Erro ao executar alteração agendamento:" + erro.message);
                 });
 
+                limparFormulario();
+
             }
             else {
                 //POST
@@ -103,10 +111,11 @@ export default function FormAgendamento(props) {
                     },
                     body: JSON.stringify({
                         "codag": agendamento.codag,
-                        "animal": animalSelecionado,
+                        "animal": {"id": animalSelecionado.id},
                         "servico": agendamento.servico,
                         "veterinario": agendamento.veterinario,
                         "data": agendamento.data,
+                        // "data":  agendamento.data.split('/').reverse().join('-'),
                         "hora": agendamento.hora
                     })
                 }).then((resposta) => {
@@ -138,6 +147,7 @@ export default function FormAgendamento(props) {
                 }).catch((erro) => {
                     window.alert("Erro ao executar a agendamento:" + erro.message);
                 });
+                limparFormulario();
             }
             setValidado(false);
         }
@@ -169,6 +179,7 @@ export default function FormAgendamento(props) {
                         campoChave={"id"}
                         campoBusca={"nome"}
                         funcaoSelecao={setAnimalSelecionado}
+                        limparCampoBusca={limparCampoBusca}
                     ></Barradebusca>
                 </div>
                 <div >

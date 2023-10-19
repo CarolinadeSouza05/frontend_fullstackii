@@ -8,11 +8,13 @@ import CaixadeSelecao from "../components/CaixadeSelecao";
 
 export default function FormDesignarTarefas(props) {
     const [validado, setValidado] = useState(false);
-    const [listadeVoluntarios, setListadeVoluntarios] = useState([]);
+    // const [listadeVoluntarios, setListadeVoluntarios] = useState([]);
     const [VoluntarioSelecionado, setVoluntarioSelecionado] = useState({});
     const [atividadeSelecionada, setAtividadeSelecionada] = useState({});
     const [atividades, setAtividades] = useState();
     const [listadeVoluntariosSelecionados, setListadeVoluntariosSelecionados] = useState([]);
+    const { setAllRegisters } = props;
+
 
     const [designarTarefas, setDesignarTarefas] = useState({
         id_designar: 0,
@@ -38,21 +40,8 @@ export default function FormDesignarTarefas(props) {
         })
     }, []);
 
-    //Recebendo os Dados do banco de dados dos voluntários
-    // useEffect(() => {
-    //     fetch(urLBase + "/voluntarios", {
-    //         method: "GET"
-    //     }).then((resposta) => {
-    //         return resposta.json();
-    //     }).then((dados) => {
-    //         if (Array.isArray(dados)) {
-    //             setListadeVoluntarios(dados);
-    //         }
-    //         else {
-    //             setListadeVoluntarios([]);
-    //         }
-    //     })
-    // }, []);
+
+
 
     function manipularMudanca(e) {
         const alvo = e.currentTarget.name;
@@ -70,14 +59,14 @@ export default function FormDesignarTarefas(props) {
     }
 
     function gravarDesignar() {
-         let listadevolunarios_Json = [];
-         for (const item of listadeVoluntariosSelecionados) {
-             listadevolunarios_Json.push(
-                 {
-                    id: item.id 
-                 }
-             );
-         }
+        let listadevolunarios_Json = [];
+        for (const item of listadeVoluntariosSelecionados) {
+            listadevolunarios_Json.push(
+                {
+                    id: item.id
+                }
+            );
+        }
         fetch(urLBase + "/designar_atividades", {
             method: "POST",
             headers: {
@@ -89,12 +78,24 @@ export default function FormDesignarTarefas(props) {
                 "hora": designarTarefas.hora,
                 "listadeVoluntarios": listadevolunarios_Json
             })
-            
+
         }).then((resposta) => {
             return (resposta.json());
         }).then((dados) => {
             if (dados.status) {
                 setDesignarTarefas({ ...designarTarefas, id: dados.id });
+                // Após o POST bem-sucedido, faça outra solicitação GET para atualizar os dados
+                fetch(urLBase + "/designar_atividades", {
+                    method: "GET"
+                })
+                    .then((resposta) => {
+                        return resposta.json();
+                    })
+                    .then((dados) => {
+                        if (Array.isArray(dados)) {
+                            setAllRegisters(dados); // Atualize os registros aqui
+                        }
+                    })
             }
             alert(dados.mensagem);
         }).catch((erro) => {
@@ -118,16 +119,16 @@ export default function FormDesignarTarefas(props) {
         <div>
             <Form onSubmit={manipulaSubmissao} validated={validado} className="Form_designar">
                 <Row className="alinhando_linhas_form_designar">
-                <Col md={11}>
-                    <Barradebusca
-                        placeHolder={'Informe a atividade'}
-                        dados={atividades}
-                        campoChave={"id"}
-                        campoBusca={"name"}
-                        funcaoSelecao={setAtividadeSelecionada}
-                    ></Barradebusca>
-                </Col></Row>
-                <Row style={{ marginTop: '20px' , marginBottom: '20px'}} className="alinhando_linhas_form_designar">
+                    <Col md={11}>
+                        <Barradebusca
+                            placeholder={'Informe a atividade'}
+                            dados={atividades}
+                            campoChave={"id"}
+                            campoBusca={"name"}
+                            funcaoSelecao={setAtividadeSelecionada}
+                        ></Barradebusca>
+                    </Col></Row>
+                <Row style={{ marginTop: '20px', marginBottom: '20px' }} className="alinhando_linhas_form_designar">
                     <Form.Group as={Col} md='6' controlId="data_tarefa">
                         <Form.Label>Data</Form.Label>
                         <Form.Control required
@@ -158,7 +159,7 @@ export default function FormDesignarTarefas(props) {
                 </Row> */}
                 <Row className="alinhando_linhas_form_designar">
                     <Col md={11}>
-                    <CaixadeSelecao url={urLBase + "/voluntarios"} campoChave={"id"} campoExibicao={"nome"} funcaoSelecao={setVoluntarioSelecionado}></CaixadeSelecao>
+                        <CaixadeSelecao url={urLBase + "/voluntarios"} campoChave={"id"} campoExibicao={"nome"} funcaoSelecao={setVoluntarioSelecionado}></CaixadeSelecao>
                     </Col>
                 </Row>
                 <Row className="alinhando_linhas_form_designar">
@@ -166,7 +167,7 @@ export default function FormDesignarTarefas(props) {
                         <Form.Control
                             type={'text'}
                             name={'id'}
-                            placeHolder={'Código'}
+                            placeholder={'Código'}
                             value={VoluntarioSelecionado.id}
                             disabled={true}
                             style={{ marginTop: '30px' }}
@@ -176,7 +177,7 @@ export default function FormDesignarTarefas(props) {
                         <Form.Control
                             type={'text'}
                             name={'nome'}
-                            placeHolder={'Nome'}
+                            placeholder={'Nome'}
                             value={VoluntarioSelecionado.nome}
                             disabled={true}
                             style={{ marginTop: '30px' }}
@@ -186,7 +187,7 @@ export default function FormDesignarTarefas(props) {
                         <Form.Control
                             type={'text'}
                             name={'telefone'}
-                            placeHolder={'Telefone'}
+                            placeholder={'Telefone'}
                             value={VoluntarioSelecionado.telefone}
                             disabled={true}
                             style={{ marginTop: '30px' }}
@@ -195,7 +196,7 @@ export default function FormDesignarTarefas(props) {
                         <Form.Control
                             type={'text'}
                             name={'disponibilidade'}
-                            placeHolder={'Disponibilidade'}
+                            placeholder={'Disponibilidade'}
                             value={VoluntarioSelecionado.disponibilidade}
                             disabled={true}
                             style={{ marginTop: '30px' }}
@@ -204,7 +205,7 @@ export default function FormDesignarTarefas(props) {
                         <Form.Control
                             type={'text'}
                             name={'periodo'}
-                            placeHolder={'Periodo'}
+                            placeholder={'Periodo'}
                             value={VoluntarioSelecionado.periodo}
                             disabled={true}
                             style={{ marginTop: '30px' }}
@@ -212,29 +213,30 @@ export default function FormDesignarTarefas(props) {
 
                     <Form.Group as={Col} md='1' controlId="acrescentar">
                         <Button className="botao_table_designar_voluntario"
-                        onClick={() => {
-                             const vol1 = {
-                                id: VoluntarioSelecionado.id,
-                                nome: VoluntarioSelecionado.nome,
-                                telefone: VoluntarioSelecionado.telefone,
-                                disponibilidade: VoluntarioSelecionado.disponibilidade,
-                                periodo: VoluntarioSelecionado.periodo
-                            }//A ... significa pegar a lista anterior e adicionar a uma nova lista podendo add novos valores
-                            setListadeVoluntariosSelecionados([...listadeVoluntariosSelecionados, vol1])}}
+                            onClick={() => {
+                                const vol1 = {
+                                    id: VoluntarioSelecionado.id,
+                                    nome: VoluntarioSelecionado.nome,
+                                    telefone: VoluntarioSelecionado.telefone,
+                                    disponibilidade: VoluntarioSelecionado.disponibilidade,
+                                    periodo: VoluntarioSelecionado.periodo
+                                }//A ... significa pegar a lista anterior e adicionar a uma nova lista podendo add novos valores
+                                setListadeVoluntariosSelecionados([...listadeVoluntariosSelecionados, vol1])
+                            }}
                             style={{ marginTop: '30px' }}><FaCartPlus /></Button>
                     </Form.Group>
                 </Row>
-                
+
                 <Row>
-                    <TabelaDesignarVoluntarios 
+                    <TabelaDesignarVoluntarios
                         listadevoluntarios={listadeVoluntariosSelecionados}
                         setDesignarTarefas={setDesignarTarefas}
                         dadosDesignarTarefas={designarTarefas}
                         setListaItens={setListadeVoluntariosSelecionados}></TabelaDesignarVoluntarios>
                 </Row>
-               <Row className="alinhando_botao_designar">
-                <Button type="submit" className="botao_designar">Gravar Tarefa</Button>
-               </Row>
+                <Row className="alinhando_botao_designar">
+                    <Button type="submit" className="botao_designar">Gravar Tarefa</Button>
+                </Row>
             </Form>
         </div>
     );
