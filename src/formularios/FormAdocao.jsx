@@ -3,18 +3,17 @@ import { useEffect, useState } from 'react';
 import { urLBase } from '../api/index.js';
 import Barradebusca from '../components/Barradebusca';
 
-export default function FormAgendamento(props) {
+export default function FormAdocao(props) {
     const [animalSelecionado, setAnimalSelecionado] = useState({});
     const [animais, setAnimais] = useState([]);//adicionei a lista vazia
     const [validado, setValidado] = useState(false);
-    const [agendamento, setAgendamento] = useState({
-        codag: 0,
+    const [adocao, setAdocao] = useState({
+        codAdocao: 0,
         animal: {},
-        servico: "",
-        veterinario: "",
+        adotante: "",
         data: "",
-        hora: ""
     })
+<<<<<<< HEAD:src/formularios/FormAgendamento.jsx
     function limparFormulario() {
         props.setModoEdicao(false);
         props.setAgendamentoEmEdicao({
@@ -31,10 +30,12 @@ export default function FormAgendamento(props) {
     function limparCampoBusca() {
         setAnimalSelecionado({});
     }
+=======
+>>>>>>> 8903a37081308c59b0fe0aefa9d274b66c065145:src/formularios/FormAdocao.jsx
 
     useEffect(() => {
-        setAgendamento(props.agendamentoEmEdicao);
-    }, [props.agendamentoEmEdicao]);
+        setAdocao(props.adocaoEmEdicao);
+    }, [props.adocaoEmEdicao]);
 
     //Recebendo os Dados do banco de dados
     useEffect(() => {
@@ -56,47 +57,58 @@ export default function FormAgendamento(props) {
         const elemForm = e.currentTarget;
         const id = elemForm.id;
         const valor = elemForm.value;
-        setAgendamento({ ...agendamento, [id]: valor });
+        setAdocao({ ...adocao, [id]: valor });
     }
 
 
 
-    function gravarAgendamento(evento) {
+    function gravarAdocao(evento) {
         const form = evento.currentTarget;
         if (form.checkValidity()) {
             if (props.modoEdicao) {
                 //PUT
+<<<<<<< HEAD:src/formularios/FormAgendamento.jsx
                 // const dataFormatada = new Date(agendamento.data).toLocaleDateString('ko-KR');
                 fetch(urLBase + '/agendamentos', {
+=======
+                fetch(urLBase + '/adocoes', {
+>>>>>>> 8903a37081308c59b0fe0aefa9d274b66c065145:src/formularios/FormAdocao.jsx
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
+<<<<<<< HEAD:src/formularios/FormAgendamento.jsx
                         "codag": agendamento.codag,
                         "animal": {"id": animalSelecionado.id},
                         "servico": agendamento.servico,
                         "veterinario": agendamento.veterinario,
                         "data": agendamento.data,
                         "hora": agendamento.hora
+=======
+                        "codAdocao": adocao.codAdocao,
+                        "animal": animalSelecionado,
+                        "adotante": adocao.adotante,
+                        "data": adocao.data
+>>>>>>> 8903a37081308c59b0fe0aefa9d274b66c065145:src/formularios/FormAdocao.jsx
                     })
                 }).then((resposta) => {
                     return resposta.json();
                 }).then((dados) => {
                     if (dados.status) {
                         props.setModoEdicao(false);
-                        fetch(urLBase + '/agendamentos', {
+                        fetch(urLBase + '/adocoes', {
                             method: "GET"
                         })
                             .then((resposta) => resposta.json())
-                            .then((agendamentoAtualizado) => {
-                                props.setAgendamento(agendamentoAtualizado);
+                            .then((adocaoAtualizado) => {
+                                props.setAdocao(adocaoAtualizado);
                                 // props.exibirTabela(true);
                             });
                     }
                     window.alert(dados.mensagem);
                 }).catch((erro) => {
-                    window.alert("Erro ao executar alteração agendamento:" + erro.message);
+                    window.alert("Erro ao executar alteração adocao:" + erro.message);
                 });
 
                 limparFormulario();
@@ -104,12 +116,13 @@ export default function FormAgendamento(props) {
             }
             else {
                 //POST
-                fetch(urLBase + "/agendamentos", {
+                fetch(urLBase + "/adocoes", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
+<<<<<<< HEAD:src/formularios/FormAgendamento.jsx
                         "codag": agendamento.codag,
                         "animal": {"id": animalSelecionado.id},
                         "servico": agendamento.servico,
@@ -117,6 +130,12 @@ export default function FormAgendamento(props) {
                         "data": agendamento.data,
                         // "data":  agendamento.data.split('/').reverse().join('-'),
                         "hora": agendamento.hora
+=======
+                        "codAdocao": adocao.codAdocao,
+                        "animal": animalSelecionado,
+                        "adotante": adocao.adotante,
+                        "data": adocao.data,
+>>>>>>> 8903a37081308c59b0fe0aefa9d274b66c065145:src/formularios/FormAdocao.jsx
                     })
                 }).then((resposta) => {
                     return (resposta.json())
@@ -124,28 +143,28 @@ export default function FormAgendamento(props) {
                     if (dados.status) {
                         props.setModoEdicao(false);
 
-                        // Após o cadastro bem-sucedido, faça uma nova solicitação GET para obter o agendamento recém-criado
-                        fetch(urLBase + '/agendamentos/', {
+                        // Após o cadastro bem-sucedido, faça uma nova solicitação GET para obter o adocao recém-criado
+                        fetch(urLBase + '/adocoes/', {
                             method: "GET"
                         })
                             .then((resposta) => resposta.json())
-                            .then((agendamentoAtualizado) => {
-                                props.setAgendamento(agendamentoAtualizado);
+                            .then((adocaoAtualizado) => {
+                                props.setAdocao(adocaoAtualizado);
 
-                                // Atualize animalSelecionado aqui com os detalhes do animal do agendamento recém-criado
-                                setAnimalSelecionado(agendamentoAtualizado.animal);
+                                // Atualize animalSelecionado aqui com os detalhes do animal do adocao recém-criado
+                                setAnimalSelecionado(adocaoAtualizado.animal);
                             });
 
-                        // let agendamentos = [...props.listadeagendamentos];
-                        // agendamentos.push(agendamento)
-                        // props.setAgendamento(agendamentos);
+                        // let adocoes = [...props.listadeadocoes];
+                        // adocoes.push(adocao)
+                        // props.setAdocao(adocoes);
                         // // props.exibirTabela(true);
                         // // Atualize animalSelecionado aqui
 
                     }
                     window.alert(dados.mensagem);
                 }).catch((erro) => {
-                    window.alert("Erro ao executar a agendamento:" + erro.message);
+                    window.alert("Erro ao executar a adocao:" + erro.message);
                 });
                 limparFormulario();
             }
@@ -161,14 +180,14 @@ export default function FormAgendamento(props) {
     return (
         <div>
             <form className='form_agenda'
-                onSubmit={gravarAgendamento}
+                onSubmit={gravarAdocao}
                 noValidate
                 validated={validado}>
                 <input
                     type="text"
-                    id="codag"
-                    name="codag"
-                    value={agendamento.codag}
+                    id="codAdocao"
+                    name="codAdocao"
+                    value={adocao.codAdocao}
                     onChange={manupilaAlteracao}
                     hidden
                 />
@@ -183,28 +202,12 @@ export default function FormAgendamento(props) {
                     ></Barradebusca>
                 </div>
                 <div >
-                    <label htmlFor="servico" className="montserrat-bold-cod-gray-12px">Serviço:</label>
-                    <select
-                        id="servico"
-                        name="servico"
-                        className="flex-row-item"
-                        value={agendamento.servico}
-                        onChange={manupilaAlteracao}
-                        required
-                    >
-                        <option value="Selecione">Selecione</option>
-                        <option value="Castração">Castração</option>
-                        <option value="Consulta">Consulta</option>
-                        <option value="Internação">Internação</option>
-                    </select>
-                </div>
-                <div >
-                    <label htmlFor="veterinario" className="montserrat-bold-cod-gray-12px">Veterinário:</label>
+                    <label htmlFor="adotante" className="montserrat-bold-cod-gray-12px">Adotante:</label>
                     <input
                         type="text"
-                        id="veterinario"
-                        name="veterinario"
-                        value={agendamento.veterinario}
+                        id="adotante"
+                        name="adotante"
+                        value={adocao.adotante}
                         onChange={manupilaAlteracao}
                         className="flex-row-item "
                         required
@@ -216,34 +219,14 @@ export default function FormAgendamento(props) {
                         type="date"
                         id="data"
                         name="data"
-                        value={agendamento.data}
-                        onChange={manupilaAlteracao}
-                        className="flex-row-item"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="hora" className="montserrat-bold-cod-gray-12px">Hora:</label>
-                    <input
-                        type="time"
-                        id="hora"
-                        name="hora"
-                        value={agendamento.hora}
+                        value={adocao.data}
                         onChange={manupilaAlteracao}
                         className="flex-row-item"
                         required
                     />
                 </div>
                 <div className='alinha_button'>
-                    <button
-                        type="button"
-                        id="limpar"
-                        className="botao_denuncia montserrat-bold-concrete-16px"
-                        onClick={limparFormulario}
-                    >
-                        Limpar
-                    </button>
-                    <button type="submit" className='botao_agendar montserrat-bold-concrete-16px'>{props.modoEdicao ? "Remarcar" : "Agendar"}</button></div>
+                    <button type="submit" className='botao_agendar montserrat-bold-concrete-16px'>{props.modoEdicao ? "Alterar" : "Adotado"}</button></div>
             </form>
         </div>
     );
